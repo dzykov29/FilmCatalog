@@ -1,10 +1,17 @@
 import React from 'react';
 
 const MyNavLink = ({children}) => {
-    const url = `/${children.toLowerCase().trim()}`
+    let url = `/${children.toLowerCase().trim()}`
+
+    if (children === 'Home') {
+        url = '/'
+    }
 
     return (
-        <a href={url}>
+        <a 
+        className='nav__link' 
+        href={url}
+        >
            {children} 
         </a>
     );

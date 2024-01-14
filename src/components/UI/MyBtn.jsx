@@ -1,10 +1,10 @@
 import React from 'react';
 import '../../styles/MyBtn.css'
 
-const MyBtn = () => {
+const MyBtn = ({children, url}) => {
     return (
         <button className='btn'>
-            Подробнее
+            <a href={url}>{children}</a>
         </button>
     );
 };
