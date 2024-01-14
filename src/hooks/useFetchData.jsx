@@ -8,6 +8,7 @@ export default function useFetchData() {
 
 
     useEffect(() => {
+        
         const fetchData = async () => {
             try {
                 const res = await axios.get('https://shikimori.one/api/animes/', {

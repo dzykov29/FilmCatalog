@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/AnimeItem.css'
 import { format } from 'date-fns';
-import MyBtn from './UI/MyBtn';
 
 const AnimeItem = ({data}) => {
     const [released, setReleased] = useState(false)
     const url = 'https://shikimori.one/'
     const [transformedDateString, setTransformedDateString] = useState('');
-
-    console.log(data);
 
     useEffect(() => {
         if (data.released_on !== null) {
@@ -19,17 +16,28 @@ const AnimeItem = ({data}) => {
     }, [data.released_on]);
 
     return (
-        <li className='list__item item'> 
-            <img className='item__image' src={url + data.image.preview} alt={data.russian} />
-            <h5 className='item__title'>{data.russian}</h5>
-            {released ?
-                <p className='item__release'>{transformedDateString}</p>
-                :
-                <p className='item__release'>Дата релиза не указана</p>
-            }
-            <p className='item__descr'>{data.score}</p>
-            <MyBtn url={url + data.url}>Подробнее</MyBtn>
-        </li>
+            <tr className='tbody__row'>
+                <td className='tbody__cell tbody__image'>
+                    <img className='image' src={url + data.image.preview} alt={data.russian} />
+                </td>
+                <td className='tbody__cell tbody__name'>
+                    <h5 className=''>{data.russian}</h5>
+                </td>
+
+                <td className='tbody__cell tbody__released'>
+                    {released ?
+                        <p className=''>{transformedDateString}</p>
+                        :
+                        <p className=''>Дата релиза не указана</p>
+                    }
+                </td>
+                <td className='tbody__cell tbody__score'>
+                    <p className=''>{data.score}</p>
+                </td>
+                <td className='tbody__cell tbody__details'>
+                    <a href={url + data.url}>Подробнее</a>
+                </td>
+            </tr>
     );
 };
 

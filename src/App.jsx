@@ -8,19 +8,30 @@ import Search from './components/UI/Search';
 function App() {
   const { data, loading, error } = useFetchData();
   const [searchData, setSearchData] = useState([]);
+  const [sortStream, setSortStream] = useState(true);
 
   const nav = ['Home', 'Favorite', 'Popular', 'Other'];
 
+  useEffect(() => {
+    setSearchData(data ? [...data] : []);
+  }, [data]);
+
   const handleSearch = (searchValue) => {
-    const filteredData = data.filter((item) =>
+    const filteredData = searchData.filter((item) =>
       item.russian.toLowerCase().includes(searchValue.toLowerCase())
     );
-    setSearchData(filteredData);
+    setSearchData(filteredData.length > 0 ? filteredData : []); // Устанавливаем пустой массив при отсутствии совпадений
   };
 
-  useEffect(() => {
-    // You can perform additional actions here when data changes
-  }, [data]);
+  const sortingData = (value) => {
+    const sortedData = [...searchData];
+
+    sortStream
+      ? setSearchData(sortedData.sort((a, b) => a[value] > b[value] ? 1 : -1))
+      : setSearchData(sortedData.sort((a, b) => a[value] < b[value] ? 1 : -1));
+
+    setSortStream(!sortStream);
+  }
 
   return (
     <div className="App">
@@ -28,7 +39,7 @@ function App() {
       <Search onChange={handleSearch} />
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {data && <AnimeList data={searchData.length > 0 ? searchData : data} />}
+      {data && <AnimeList sortingData={sortingData} data={searchData} />}
     </div>
   );
 }

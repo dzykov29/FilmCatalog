@@ -1,15 +1,19 @@
 import React from 'react';
 import AnimeItem from './AnimeItem';
 import '../styles/AnimeList.css'
+import TableHead from './TableHead';
 
-const AnimeList = ({data}) => {
+const AnimeList = ({ data, sortingData }) => {
 
     return (
-        <ul className='list-reset list'>
+        <table className='table'>
+            <TableHead sortingData={sortingData} />
+            <tbody>
             {data.map(item => (
                 <AnimeItem key={item.id} data={item}></AnimeItem>
             ))}
-        </ul>
+            </tbody>
+        </table>
     );
 };
 
