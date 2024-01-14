@@ -6,6 +6,7 @@ export default function useFetchData() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
