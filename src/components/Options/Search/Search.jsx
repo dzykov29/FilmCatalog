@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import '../../styles/Search.css'
+import './Search.css'
 
-const Search = ({ onChange }) => {
+const Search = ({ handleSearch }) => {
 
     const [value, setValue] = useState('')
 
     useEffect(() => {
-        onChange(value)
+        handleSearch(value)
     }, [value])
 
     return (

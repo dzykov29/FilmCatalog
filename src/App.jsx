@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import useFetchData from './hooks/useFetchData';
-import AnimeList from './components/AnimeList';
-import Nav from './components/Nav';
-import Search from './components/UI/Search';
+import AnimeList from './components/TableBody/AnimeList';
+import Nav from './components/Nav/Nav';
+import Options from './components/Options/Options';
 
 function App() {
   const { data, loading, error } = useFetchData();
   const [searchData, setSearchData] = useState([]);
   const [sortStream, setSortStream] = useState(true);
+  const [columns, setColumns] = useState([])
 
   const nav = ['Home', 'Favorite', 'Popular', 'Other'];
 
   useEffect(() => {
-    setSearchData(data ? [...data] : []);
+    setSearchData(data && [...data]);
   }, [data]);
 
   const handleSearch = (searchValue) => {
-    const filteredData = searchData.filter((item) =>
+    const filteredData = data.filter((item) =>
       item.russian.toLowerCase().includes(searchValue.toLowerCase())
     );
-    setSearchData(filteredData.length > 0 ? filteredData : []); // Устанавливаем пустой массив при отсутствии совпадений
+    setSearchData(filteredData); // Устанавливаем пустой массив при отсутствии совпадений
   };
 
   const sortingData = (value) => {
@@ -33,13 +34,20 @@ function App() {
     setSortStream(!sortStream);
   }
 
+  const handleCheckedColumns = (columns) => {
+    setColumns(columns)
+  }
+
+  console.log(columns);
+
   return (
     <div className="App">
       <Nav nav={nav} />
-      <Search onChange={handleSearch} />
+      <Options handleCheckedColumns={handleCheckedColumns} handleSearch={handleSearch} />
+      
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {data && <AnimeList sortingData={sortingData} data={searchData} />}
+      {data && <AnimeList columns={columns} sortingData={sortingData} data={searchData} />}
     </div>
   );
 }

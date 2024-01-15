@@ -1,6 +1,6 @@
 import React from 'react';
-import MyNavLink from './UI/MyNavLink';
-import '../styles/nav.css'
+import MyNavLink from './MyNavLink';
+import './nav.css'
 
 const Nav = ({nav}) => {
     return (
