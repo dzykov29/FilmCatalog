@@ -3,7 +3,11 @@ import AnimeItem from './AnimeItem';
 import './AnimeList.css'
 import TableHead from '../TableHead/TableHead';
 
-const AnimeList = ({ data, sortingData, columns }) => {
+const AnimeList = ({ data, sortingData, columns, isLoading }) => {
+
+    if (isLoading) {
+        <p>Loading...</p>
+    }
 
     return (
         <table className='table'>
