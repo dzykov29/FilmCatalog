@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import useFetchData from './hooks/useFetchData';
-import AnimeList from './components/TableBody/AnimeList';
+import AnimeList from './components/pages/Home/TableBody/AnimeList';
 import Nav from './components/Nav/Nav';
 import Options from './components/Options/Options';
+import { Routes, Route, useLocation} from 'react-router-dom';
+import Favorite from './components/pages/Favorite/Favorite';
+import FilmPage from './components/pages/FilmPage/FilmPage';
 
 function App() {
   const { data, loading, error } = useFetchData();
   const [searchData, setSearchData] = useState([]);
   const [sortStream, setSortStream] = useState(true);
-  const [columns, setColumns] = useState([])
+  const [columns, setColumns] = useState([]);
+  const [urlBackground, setUrlBackground] = useState('')
 
-  const nav = ['Home', 'Favorite', 'Popular', 'Other'];
+  const location = useLocation();
+  const filmId = location.pathname.split('/')[2];
 
   useEffect(() => {
     setSearchData(data && [...data]);
@@ -38,17 +43,29 @@ function App() {
     setColumns(columns)
   }
 
-  console.log(columns);
-
   return (
-    <div className="App">
-      <Nav nav={nav} />
-      <Options handleCheckedColumns={handleCheckedColumns} handleSearch={handleSearch} />
-      
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {data && <AnimeList columns={columns} sortingData={sortingData} data={searchData} />}
-    </div>
+    
+      <div 
+        className="App"
+        // style={filmId ? { backgroundImage: `url(${urlBackground})`} : {backgroundImage: 'none'}}
+      >
+        <Nav />
+       
+        
+      {location.pathname !== `/film/${filmId}` && <Options handleCheckedColumns={handleCheckedColumns} handleSearch={handleSearch} />}
+        {error && <p>Error: {error.messages}</p>}
+        <Routes>
+          <Route path='/' element={<AnimeList columns={columns} sortingData={sortingData} data={searchData} isLoading={loading} />} />
+        <Route path='/favorite' element={<Favorite columns={columns} sortingData={sortingData} />} />
+          <Route path='/film/:filmId' element={<FilmPage urlBackground={setUrlBackground} />} />
+          <Route path='*' element={<AnimeList />} />
+        </Routes>
+
+        <div className='background'
+          style={filmId ? { backgroundImage: `url(${urlBackground})` } : { backgroundImage: 'none' }}
+        ></div>
+      </div>
+
   );
 }
 

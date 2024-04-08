@@ -1,13 +1,14 @@
 import React from 'react';
-import MyNavLink from './MyNavLink';
 import './nav.css'
+import { Link } from 'react-router-dom';
 
-const Nav = ({nav}) => {
+const Nav = () => {
     return (
         <nav className='nav'>
-            {nav.map((item, index) => 
-                <MyNavLink key={index}>{item}</MyNavLink>
-            )}
+            <nav>
+                <Link className='nav__link' to={"/"}>Home</Link>
+                <Link className='nav__link' to={"/favorite"}>Favorite</Link>
+            </nav>
         </nav>
     );
 };

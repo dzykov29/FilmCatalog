@@ -6,6 +6,18 @@
 
 .App {
     max-width: 1200px;
+    min-height: 1000px;
     padding: 0 100px;
     margin: 0 auto;
+    
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-blend-mode: darken;
+    filter: grayscale(100%);
 }
