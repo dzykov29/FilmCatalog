@@ -1,6 +1,17 @@
 .select__wrapper {
+    padding: 5px;
+    height: 70px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: flex-start;
     gap: 5px;
-    width: 30%;
+    width:40%;
+    background-color: #fff;
+}
+
+#combo-box {
+    display: flex;
+    height: 20px;
+    z-index: 10;
+    margin-bottom: 10px;
 }

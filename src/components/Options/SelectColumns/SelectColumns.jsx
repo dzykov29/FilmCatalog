@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './SelectColumns.css';
+import { TextField } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
+import { options } from '../../../utils/SelectOptions';
 
 const SelectColumns = ({ handleCheckedColumns }) => {
     const [selectedOptions, setSelectedOptions] = useState([
         'name', 'image', 'releaseDate', 'score', 'details',
     ]);
 
-    const handleSelect = (event) => {
-        const { value } = event.target;
-
-        // Проверка, был ли элемент уже выбран
-        if (selectedOptions.includes(value)) {
-            // Если был выбран, убираем из списка
-            setSelectedOptions(selectedOptions.filter(option => option !== value));
-        } else {
-            // Если не был выбран, добавляем в список
-            setSelectedOptions([...selectedOptions, value]);
-        }
-    }
+    const handleSelect = (event, newValue) => {
+        setSelectedOptions(newValue.map(option => option.value)); // Обновляем selectedOptions с массивом значений
+    };
 
     useEffect(() => {
         handleCheckedColumns(selectedOptions)
@@ -25,19 +19,17 @@ const SelectColumns = ({ handleCheckedColumns }) => {
 
     return (
         <div className='select__wrapper'>
-            <label htmlFor="selectColumns">Select Columns:</label>
-            <select
-                id="selectColumns"
-                value={selectedOptions}
-                onChange={handleSelect}
-                multiple
-            >
-                <option value="image">Image</option>
-                <option value="name">Name</option>
-                <option value="releaseDate">Release_Date</option>
-                <option value="score">Score</option>
-                <option value="details">Details</option>
-            </select>
+            <Autocomplete
+                multiple // Делаем Autocomplete множественным
+                id="combo-box"
+                limitTags={2}
+                options={options}
+                value={options.filter(option => selectedOptions.includes(option.value))} // Устанавливаем значение для множественного выбора
+                onChange={handleSelect} // Используем новый обработчик
+                getOptionLabel={(option) => option.label}
+                style={{ width: 500, height: 70, marginBottom: 10}}
+                renderInput={(params) => <TextField {...params} style={{backgroundColor: '#fff'}} label="Select Columns:" variant="outlined" />}
+            />
         </div>
     );
 };

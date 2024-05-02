@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import './App.css';
 import useFetchData from './hooks/useFetchData';
-import AnimeList from './components/pages/Home/TableBody/AnimeList';
+import HomePage from './components/pages/Home/HomePage';
 import Nav from './components/Nav/Nav';
 import Options from './components/Options/Options';
 import { Routes, Route, useLocation} from 'react-router-dom';
 import Favorite from './components/pages/Favorite/Favorite';
-import FilmPage from './components/pages/FilmPage/FilmPage';
+import FilmPage from './components/FilmPage/FilmPage'
+
 
 function App() {
   const { data, loading, error } = useFetchData();
   const [searchData, setSearchData] = useState([]);
   const [sortStream, setSortStream] = useState(true);
   const [columns, setColumns] = useState([]);
-  const [urlBackground, setUrlBackground] = useState('')
 
   const location = useLocation();
   const filmId = location.pathname.split('/')[2];
@@ -28,16 +28,16 @@ function App() {
     );
     setSearchData(filteredData); // Устанавливаем пустой массив при отсутствии совпадений
   };
-
-  const sortingData = (value) => {
+  const sortingData = useMemo(() => (value) => {
     const sortedData = [...searchData];
 
-    sortStream
-      ? setSearchData(sortedData.sort((a, b) => a[value] > b[value] ? 1 : -1))
-      : setSearchData(sortedData.sort((a, b) => a[value] < b[value] ? 1 : -1));
+    const sorted = sortedData.sort((a, b) =>
+      sortStream ? (a[value] > b[value] ? 1 : -1) : a[value] < b[value] ? 1 : -1
+    );
 
+    setSearchData([...sorted]);
     setSortStream(!sortStream);
-  }
+  }, [sortStream, searchData]);
 
   const handleCheckedColumns = (columns) => {
     setColumns(columns)
@@ -47,23 +47,16 @@ function App() {
     
       <div 
         className="App"
-        // style={filmId ? { backgroundImage: `url(${urlBackground})`} : {backgroundImage: 'none'}}
       >
         <Nav />
-       
-        
       {location.pathname !== `/film/${filmId}` && <Options handleCheckedColumns={handleCheckedColumns} handleSearch={handleSearch} />}
         {error && <p>Error: {error.messages}</p>}
         <Routes>
-          <Route path='/' element={<AnimeList columns={columns} sortingData={sortingData} data={searchData} isLoading={loading} />} />
-        <Route path='/favorite' element={<Favorite columns={columns} sortingData={sortingData} />} />
-          <Route path='/film/:filmId' element={<FilmPage urlBackground={setUrlBackground} />} />
-          <Route path='*' element={<AnimeList />} />
+          <Route path='/' element={<HomePage columns={columns} sortingData={sortingData} data={searchData} isLoading={loading} />} />
+          <Route path='/favorite' element={<Favorite columns={columns} sortingData={sortingData} />} />
+          <Route path='/film/:filmId' element={<FilmPage />} />
+          <Route path='*' element={<HomePage />} />
         </Routes>
-
-        <div className='background'
-          style={filmId ? { backgroundImage: `url(${urlBackground})` } : { backgroundImage: 'none' }}
-        ></div>
       </div>
 
   );

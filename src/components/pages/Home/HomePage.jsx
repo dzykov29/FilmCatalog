@@ -1,9 +1,9 @@
 import React from 'react';
-import AnimeItem from './AnimeItem';
-import './AnimeList.css'
-import TableHead from '../TableHead/TableHead';
+import AnimeItem from './TableBody/AnimeItem';
+import './HomePage.css'
+import TableHead from './TableHead/TableHead';
 
-const AnimeList = ({ data, sortingData, columns, isLoading }) => {
+const HomePage = ({ data, sortingData, columns, isLoading }) => {
 
     if (isLoading) {
         <p>Loading...</p>
@@ -21,4 +21,4 @@ const AnimeList = ({ data, sortingData, columns, isLoading }) => {
     );
 };
 
-export default AnimeList;
+export default HomePage;
