@@ -83,16 +83,22 @@ const AnimeItem = ({ data, columns, updateFavoriteList }) => {
             }
             {columns.includes('details') &&
                 <td className='tbody__cell tbody__details'>
-                    <Link to={`/film/${data.id}`}>Подробнее</Link>
+                    <Link className='details__link' to={`/film/${data.id}`}>Подробнее</Link>
                 </td>
             }
-            <td className='tbody__cell tbody__details'>
-                {isFavorite ? 
-                    <button onClick={handleRemoveFavorite}>Удалить из избранного</button>
-                :
-                    <button onClick={handleAddFavorite}>Добавить в избранное</button>
-                }
-            </td>
+             {columns.includes('details') && 
+                <td className='tbody__cell tbody__details'>
+                    {isFavorite ? 
+                        <button className='btn' onClick={handleRemoveFavorite}>
+                            <img className='btn__stars' src='./favorite.png' alt='Удалить из избранного' />
+                        </button>
+                    :
+                        <button className='btn' onClick={handleAddFavorite}>
+                            <img className='btn__stars' src='./unfavorite.png' alt='Добавить в избранное' />
+                        </button>
+                    }
+                </td>
+             }
             </tr>
     );
 };

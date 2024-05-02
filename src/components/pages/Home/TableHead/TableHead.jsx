@@ -18,7 +18,7 @@ const TableHead = ({ sortingData, columns }) => {
                     <th onClick={() => { sortingData('score') }} className='cell-head'>score</th>
                 }
                 {columns.includes('details') &&
-                    <th className='cell-head'>details</th>
+                    <th className='cell-head' colSpan="2">details</th>
                 }
             </tr>
         </thead>
