@@ -3,6 +3,7 @@
 }
 
 .tbody__cell {
+    width: 20%;
     padding: 5px;
     border: 1px solid #000;
     text-align: center;

@@ -1,0 +1,53 @@
+$whiteColor: #fff;
+$blackColor: #000;
+$defaultGap: 10px;
+
+@mixin resetMargin {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin flexDisplay {
+    display: flex;
+    gap: $defaultGap;
+}
+
+.nav {
+    @include resetMargin();
+    @include flexDisplay();
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: #000;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+
+    .nav__list {
+        @include flexDisplay();
+        list-style: none;
+        .nav__link {
+            padding: 5px 10px;
+            text-decoration: none;
+            color: inherit;
+            transition: border 0.3s ease-in-out;
+            border: 1px solid transparent;
+            color: #fff;
+        }
+
+        .nav__link:hover {
+            border: 1px solid #000;
+        }
+        .active {
+            color: red;
+        }
+    }
+
+    .logo {
+        width: 100px;
+        height: 40px;
+    }
+}
+

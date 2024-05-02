@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useFetchFilmData } from '../../hooks/useFetchFilmData';
-import './FilmPage.css'
+import './FilmPage.scss'
 import { formatDate } from '../../utils/formatDate';
 
 const FilmPage = () => {
@@ -17,26 +17,18 @@ const FilmPage = () => {
         setIsFavorite(isFilmFavorite);
     }, [filmId, data]);
 
-
-    console.log(data);
-
-
     const handleFavorite = () => {
         // Добавляем фильм в избранное
         const favoriteFilms = JSON.parse(localStorage.getItem('favoriteFilms'));
         favoriteFilms.push(data);
         localStorage.setItem('favoriteFilms', JSON.stringify(favoriteFilms));
-
         // Обновляем состояние, чтобы скрыть кнопку
         setIsFavorite(true);
     }
 
-
     if (isLoading) {
         return <div>Loading...</div>;
     }
-
-    
 
     return (
         
@@ -56,13 +48,12 @@ const FilmPage = () => {
                         <p>{data.description}</p>
                     </div>
                 }
-
                 <p className='genre__list'><span className='film__text'>Жанр:</span>
                     {data.genres.map((genre) =>
                         <span key={genre.russian} className='genre__item'>{genre.russian}</span>
                     )}
                 </p>
-                <p className='film__link'><span className='film__text'>Домашняя страница: </span> <a href={`${url + data.url}`} target='_blank' >{url + data.url}</a></p>
+                <p className='film__link'><span className='film__text'>Домашняя страница: </span> <a href={`${url + data.url}`} target='_blank'rel='noreferrer' >{url + data.url}</a></p>
                 <p><span className='film__text'>Запланировано к просмотрю: </span>{data.rates_statuses_stats[0].value}</p>
                 <p><span className='film__text'>Просмотрено: </span>{data.rates_statuses_stats[1].value}</p>
                 <div className='film__under'>

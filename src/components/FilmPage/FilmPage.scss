@@ -1,0 +1,66 @@
+$whiteColor: #fff;
+$blackColor: #000;
+$defaultGap: 10px;
+
+@mixin resetMargin {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin flexDisplay {
+    display: flex;
+    gap: $defaultGap;
+}
+
+.genre__list {
+    @include flexDisplay()
+    
+}
+
+.film__wrapper {
+    margin-top: 20%;
+    padding: 15px;
+    @include flexDisplay();
+    background-color: $whiteColor;
+    border: 1px solid $blackColor;
+    
+    .film__descr-wrapper {
+        @include flexDisplay();
+        flex-direction: column;
+
+        .film__title {
+            @include resetMargin();
+            margin-bottom: 20px;
+        }
+
+        .film__text {
+            color: rgb(223, 117, 30);
+            font-weight: 700;
+        }
+
+        .film__under {
+            margin-top: auto;
+            @include flexDisplay();
+            flex-direction: row;
+            align-items: center;
+            gap: $defaultGap*6;
+        }
+
+        .link__back {
+            text-decoration: none;
+            color: #666;
+        }
+
+        .film__btn {
+            @include resetMargin();
+            padding: 10px 5px;
+            background-color: #e8ce29;
+            border: none;
+            border-radius: 10px;
+            color: $blackColor;
+            cursor: pointer;
+        }
+    }
+}
+
+
