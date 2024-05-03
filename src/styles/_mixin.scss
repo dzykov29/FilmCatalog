@@ -1,0 +1,9 @@
+@mixin resetMargin {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin flexDisplay {
+    display: flex;
+    gap: $defaultGap;
+}

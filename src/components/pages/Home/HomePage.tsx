@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 import AnimeItem from './TableBody/AnimeItem';
-import './HomePage.css'
+import './HomePage.scss'
 import TableHead from './TableHead/TableHead';
+import { Anime } from '../../../utils/Types';
 
-const HomePage = ({ data, sortingData, columns, isLoading }) => {
+
+type HomePageProps = {
+    data: Anime[],
+    sortingData: (value: string) => void,
+    columns: string[],
+    isLoading: boolean,
+}
+
+const HomePage:FC<HomePageProps> = ({ data, sortingData, columns, isLoading }) => {
 
     if (isLoading) {
         <p>Loading...</p>

@@ -13,7 +13,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "sass": "^1.76.0",
     "web-vitals": "^2.1.4"
   },
@@ -42,6 +42,11 @@
     ]
   },
   "devDependencies": {
-    "axios": "^1.6.5"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/node": "^20.12.8",
+    "@types/react": "^17.0.80",
+    "@types/react-dom": "^18.3.0",
+    "axios": "^1.6.5",
+    "typescript": "^5.4.5"
   }
 }

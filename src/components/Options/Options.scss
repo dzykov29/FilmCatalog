@@ -1,5 +1,8 @@
+@import '../../styles/variables';
+@import '../../styles/mixin';
+
 .options__wrapper {
-    display: flex;
+    @include flexDisplay();
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;

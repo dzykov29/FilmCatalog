@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import './AnimeItem.css'
+import React, { useState, useEffect, FC } from 'react';
+import './AnimeItem.scss'
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../../../utils/formatDate';
+import { Anime } from '../../../../utils/Types';
 
-const AnimeItem = ({ data, columns, updateFavoriteList }) => {
+type AnimeItemProps = {
+    data: Anime,
+    columns: string[],
+    updateFavoriteList?: () => void,
+}
+
+const AnimeItem:FC<AnimeItemProps> = ({ data, columns, updateFavoriteList }) => {
     const [released, setReleased] = useState(false)
     const url = 'https://shikimori.one/';
     const [transformedDateString, setTransformedDateString] = useState('');
@@ -17,14 +24,14 @@ const AnimeItem = ({ data, columns, updateFavoriteList }) => {
     }, [data.released_on]);
 
     useEffect(() => {
-        const favoriteFilms = JSON.parse(localStorage.getItem('favoriteFilms'));
-        const isFilmFavorite = favoriteFilms.some(film => film.id === Number(data.id));
+        const favoriteFilms = JSON.parse(String(localStorage.getItem('favoriteFilms')));
+        const isFilmFavorite = favoriteFilms.some((film: Anime) => film.id === Number(data.id));
         setIsFavorite(isFilmFavorite);
     }, [data]);
 
     const handleAddFavorite = () => {
         // Добавляем фильм в избранное
-        const favoriteFilms = JSON.parse(localStorage.getItem('favoriteFilms'));
+        const favoriteFilms = JSON.parse(String(localStorage.getItem('favoriteFilms')));
         favoriteFilms.push(data);
         localStorage.setItem('favoriteFilms', JSON.stringify(favoriteFilms));
 
@@ -37,10 +44,10 @@ const AnimeItem = ({ data, columns, updateFavoriteList }) => {
 
     const handleRemoveFavorite = () => {
         // Получаем массив избранных фильмов из localStorage
-        let favoriteFilms = JSON.parse(localStorage.getItem('favoriteFilms')) || [];
+        let favoriteFilms = JSON.parse(String(localStorage.getItem('favoriteFilms'))) || [];
 
         // Фильтруем массив, оставляя только фильмы, которые не соответствуют удаляемому фильму
-        favoriteFilms = favoriteFilms.filter(film => film.id !== data.id);
+        favoriteFilms = favoriteFilms.filter((film: Anime) => film.id !== data.id);
 
         // Обновляем localStorage с новым массивом избранных фильмов без удаленного фильма
         localStorage.setItem('favoriteFilms', JSON.stringify(favoriteFilms));
@@ -77,7 +84,7 @@ const AnimeItem = ({ data, columns, updateFavoriteList }) => {
             {columns.includes('score') &&
                 <td className='tbody__cell tbody__score'>
                     <p className=''>
-                        {data.score > 0 ? data.score : 'рейтинга нет'}
+                        {Number(data.score) > 0 ? data.score : 'рейтинга нет'}
                     </p>
                 </td>
             }

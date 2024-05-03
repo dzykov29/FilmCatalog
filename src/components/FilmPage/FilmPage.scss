@@ -1,16 +1,7 @@
-$whiteColor: #fff;
-$blackColor: #000;
-$defaultGap: 10px;
+@import '../../styles/_variables.scss';
+@import '../../styles/_mixin.scss';
 
-@mixin resetMargin {
-    margin: 0;
-    padding: 0;
-}
 
-@mixin flexDisplay {
-    display: flex;
-    gap: $defaultGap;
-}
 
 .genre__list {
     @include flexDisplay()

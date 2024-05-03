@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import './SelectColumns.css';
+import React, { FC, useEffect, useState } from 'react';
+import './SelectColumns.scss';
 import { TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import { options } from '../../../utils/SelectOptions';
+import { OptionsType, options } from '../../../utils/SelectOptions';
 
-const SelectColumns = ({ handleCheckedColumns }) => {
+type SelectColumnsProps = {
+    handleCheckedColumns: (columns: string[]) => void
+}
+
+const SelectColumns: FC<SelectColumnsProps> = ({ handleCheckedColumns }) => {
     const [selectedOptions, setSelectedOptions] = useState([
         'name', 'image', 'releaseDate', 'score', 'details',
     ]);
 
-    const handleSelect = (event, newValue) => {
+    const handleSelect = (event: any, newValue: OptionsType[]) => {
         setSelectedOptions(newValue.map(option => option.value)); // Обновляем selectedOptions с массивом значений
     };
 
