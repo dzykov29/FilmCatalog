@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Search from './Search/Search';
 import SelectColumns from './SelectColumns/SelectColumns';
-import './Options.css'
+import './Options.scss'
 
-const Options = ({ handleSearch, handleCheckedColumns }) => {
+type OptionsProps = {
+    handleSearch: (value: string) => void
+    handleCheckedColumns: (columns: string[]) => void
+}
+
+const Options: FC<OptionsProps> = ({ handleSearch, handleCheckedColumns }) => {
     return (
         <div className='options__wrapper'>
             <Search handleSearch={handleSearch} />

@@ -1,0 +1,8 @@
+@import '../../../styles/variables';
+
+.table {
+    width: 100%;
+    border: 1px solid $blackColor;
+    border-collapse: collapse;
+    background-color: $whiteColor;
+}
